@@ -142,7 +142,7 @@ Si se cuenta el con User y Password del login en TodoPago
 ```java		
 TodoPagoConector tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint);//End Point developer
 ```	
-- Obtener las credenciales a traves  del m&eacute;todo getCredentials de TodoPago. Ver [Obtener Credenciales](#credenciales)
+- Obtener las credenciales a traves  del m&eacute;todo getCredentials de TodoPago. (API Keys, si no sabes que es,  [Volver a leer](#merchant)).
 
 <br/>
 <a name="agrupador"></a>
