@@ -28,7 +28,7 @@ AuthorizationKey | No*        | AuthorizationKey devuelto como respuesta del ser
 _*Es requerida la presencia de sólo uno de estos 2 campos_
 
 **Ejemplo:**
-
+```java
 private static Map<String, String> getVRParameters() {
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF"); // API Key del comercio asignada por TodoPago 
