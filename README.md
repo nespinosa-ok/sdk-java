@@ -59,3 +59,9 @@ Para una configuracion avanzada podes leer:<br>
 *  [Medios de Pago](../main/advanced_options/Medios_Pago.md)<br>
 
 
+
+Y aca tenes las tablas de referencias de error:<br>
+* [Tabla de errores de integración](../main/tables/errores_integración.md)
+* [Tabla de errores operativos](../main/tables/errores_operativos.md)
+
+
