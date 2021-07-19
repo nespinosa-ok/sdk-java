@@ -49,3 +49,13 @@ Nro de Tarjeta      Tipo de Tarjeta     CCV     Vencimiento
 <tr><td>38520000023237</td><td>Diners Club </td><td>99997 - En este momento la operación no pudo ser realizada. Por favor intentá más tarde.</td></tr>
 <tr><td>4000000000000010</td><td>VISA</td><td>99955 - La tarjeta ingresada es invalida.</td></tr>
 </table>
+
+
+Para una configuracion avanzada podes leer:<br>
+*  [Operatoria Agrupador](../main/advanced_options/Operatoria_Agrupador.md)<br> 
+*  [Formulario Híbrido](../main/advanced_options/Formulario_Híbrido.md)<br>
+*  [Control de Fraude](../main/advanced_options/Control_Fraude.md)<br>
+*  [Devolución Parcial](../main/advanced_options/Devolución_Parcial.md)<br>
+*  [Medios de Pago](../main/advanced_options/Medios_Pago.md)<br>
+
+
