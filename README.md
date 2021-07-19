@@ -2,6 +2,12 @@
 Todo Pago - módulo SDK-JAVA para conexión con gateway de pago
 =======
 
+
+## Donde comenzar?
+
+<a name="merchant"></a>
+Para comenzar con la instalacion, primero te recomendamos:
+
  + [Instalación](#instalacion)
  	+ [Versiones de Java soportadas](#Versionesdejavasoportadas)
  	+ [Generalidades](#general)
