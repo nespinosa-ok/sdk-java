@@ -15,8 +15,10 @@ Una vez adheridos se creará automáticamente una cuenta virtual, en la cual se 
 <a name="solicitudautorizacion"></a>
 #### Solicitud de autorización
 En este caso hay que llamar a sendAuthorizeRequest().
-```php
-$values = $connector->sendAuthorizeRequest($optionsSAR_comercio, $optionsSAR_operacion);
+ 		
+```java		
+Map<String, Object> a = tpc.sendAuthorizeRequest(parameters, getFraudControlParameters());		
+```	
 ```
 <ins><strong>Datos propios del comercio</strong></ins>
 $optionsSAR_comercio debe ser un array con la siguiente estructura:
@@ -59,15 +61,20 @@ $optionsSAR_comercio debe ser un array con la siguiente estructura:
 </table>
 
 <ins><strong>Datos propios del comercio - Ejemplo</strong></ins>
-```php
-$optionsSAR_comercio = array (
-	'Security'=> '1234567890ABCDEF1234567890ABCDEF',
-	'EncodingMethod'=>'XML',
-	'Merchant'=>305,
-	'URL_OK'=>'localhost:8888/sdk-php/ejemplo/exito.php?Order=27398173292187',
-	'URL_ERROR'=>'localhost:8888/sdk-php/ejemplo/error.php?Order=27398173292187'
-);
-```
+```java
+Map<String, String> parameters = new HashMap<String, String>();
+	parameters.put(ElementNames.Session, "ABCDEF-1234-12221-FDE1-00000200");
+	parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF");
+	parameters.put(ElementNames.EncodingAlfanumérico de 1 a 8 caracteres.Method, "XML");
+	parameters.put(ElementNames.Merchant, "12345678"); //dato fijo (número identificador del comercio)
+	parameters.put(ElementNames.OperationID, "8000"); //número único que identifica la operación, generado por el comercio.
+	parameters.put(ElementNames.CurrencyCode, "032"); //por el momento es el único tipo de moneda aceptada
+	parameters.put(ElementNames.Amount, "1.00");
+	parameters.put(ElementNames.UrlOK, "http,//someurl.com/ok/");
+	parameters.put(ElementNames.UrlError, "http,//someurl/fail/");
+	parameters.put(ElementNames.EMAILCLIENTE, "some@someurl.com");
+```	
+
 
 *En el ejemplo se envían parámetros en la url (en nuestro ejemplo: ?Order=27398173292187), para ser recibidos por la tienda vía **get** y de este modo recuperar el valor en un próximo paso.
 
@@ -120,15 +127,20 @@ Usando el punto como separador de decimales. No se permiten comas, ni como separ
 </table>
 
 <ins><strong>Datos propios del comercio - Ejemplo</strong></ins>
-```php
-$optionsSAR_operacion = array (
-	'MERCHANT'=> 13054, //dato fijo (número identificador del comercio)
-	'OPERATIONID'=>'27398173292187', //número único que identifica la operación, generado por el comercio.
-	'CURRENCYCODE'=> 32, //por el momento es el único tipo de moneda aceptada
-	'AMOUNT'=>54.00,
-	'EMAILCLIENTE'=>'email_cliente@dominio.com',
-	);
-```
+```java
+Map<String, String> parameters = new HashMap<String, String>();
+	parameters.put(ElementNames.Session, "ABCDEF-1234-12221-FDE1-00000200");
+	parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF");
+	parameters.put(ElementNames.EncodingAlfanumérico de 1 a 8 caracteres.Method, "XML");
+	parameters.put(ElementNames.Merchant, "12345678"); //dato fijo (número identificador del comercio)
+	parameters.put(ElementNames.OperationID, "8000"); //número único que identifica la operación, generado por el comercio.
+	parameters.put(ElementNames.CurrencyCode, "032"); //por el momento es el único tipo de moneda aceptada
+	parameters.put(ElementNames.Amount, "1.00");
+	parameters.put(ElementNames.UrlOK, "http,//someurl.com/ok/");
+	parameters.put(ElementNames.UrlError, "http,//someurl/fail/");
+	parameters.put(ElementNames.EMAILCLIENTE, "some@someurl.com");
+```	
+
 
 __*__ _Importante:_ Tambíen deben mandarse los datos correspondientes a [Prevención de Fraude](#datosadicionales)
 
@@ -146,20 +158,23 @@ __*__ _Importante:_ Tambíen deben mandarse los datos correspondientes a [Preven
 
 **Ejemplo de respuesta**
 
-```php
-    array (size=5)
-    'StatusCode' => int -1
-    'StatusMessage' => string 'Solicitud de Autorizacion Registrada' (length=36)
-    'URL_Request' => string 'https://apis.developers.todopago.com.ar/formulario/commands?command=formulario&m=t7d3938c9-f7b1-4ee9-e76b-9cc84f73fe81' (length=102)
-    'RequestKey' => string '8496472a-8c87-e35b-dcf2-94d5e31eb12f' (length=36)
-    'PublicRequestKey' => string 't7d3938c9-f7b1-4ee9-e76b-9cc84f73fe81' (length=37)
+```java	
+Map<String, Object> 	
+	{ StatusCode = -1,
+	  PublicRequestKey = te0b9bba5-cff9-173a-20da-b9bc8a389ac7, 
+	  URL_Request = https://developers.todopago.com.ar/formulario/commands?command=formulario&m=te0b9bba5-cff9-173a-20da-b9bc8a389ac7, 
+	  StatusMessage = Solicitud de Autorizacion Registrada, 
+	  RequestKey = ff0f6434-a2ab-e87f-3ece-37f7081e671a }
 ```
 
 La **url_request** es donde está hosteado el formulario de pago y donde hay que redireccionar al usuario, una vez realizado el pago según el éxito o fracaso del mismo, el formulario redireccionará a una de las 2 URLs seteadas en **$optionsSAR_comercio** ([URL_OK](#url_ok), en caso de éxito o [URL_ERROR](#url_error), en caso de que por algún motivo el formulario rechace el pago)
 
 Si, por ejemplo, se pasa mal el <strong>MerchantID</strong> se obtendrá la siguiente respuesta:
-```php
-array (size=2)
-  'StatusCode' => int 702
-  'StatusMessage' => string 'ERROR: Cuenta de vendedor invalida' (length=27)
+```java
+Map<String, Object> 
+	{ StatusCode = 702,
+	  StatusMessage = ERROR: Cuenta Inexistente,
+	  PublicRequestKey = null, 
+	  URL_Request = null, 
+	  RequestKey = null }
 ```
