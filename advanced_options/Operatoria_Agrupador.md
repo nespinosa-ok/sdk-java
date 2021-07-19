@@ -154,7 +154,7 @@ Usando el punto como separador de decimales. No se permiten comas, ni como separ
   </tr>
 </table>
 
-__*__ _Importante:_ Tambíen deben mandarse los datos correspondientes a [Prevención de Fraude](#datosadicionales)
+__*__ _Importante:_ Tambíen deben mandarse los datos correspondientes a [Prevención de Fraude](/advanced_options/Control_Fraude.md)
 
 **Respuesta**
 
