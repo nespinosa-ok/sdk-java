@@ -90,6 +90,7 @@ Usando el punto como separador de decimales. No se permiten comas, ni como separ
   </tr>
 </table>
 
+<ins><strong>Datos propios del comercio - Ejemplo</strong></ins>
 		
 ```java
 Map<String, String> parameters = new HashMap<String, String>();
