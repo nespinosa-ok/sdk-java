@@ -5,9 +5,8 @@ La SDK cuenta con un método para obtener todos los medios de pago habilitados e
 ![medios de pago](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-paymentmethods.jpg)
 
 
-```php
-$client = new TodoPago\Sdk($http_header, $mode);
-$rta = $client->discoverPaymentMethods();
+```java
+Map<String, Object> g = tpc.discoverPaymentMethods();
 ```
 
 <a name="devolucion"></a>
