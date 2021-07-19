@@ -403,7 +403,7 @@ private static Map<String, String> getFraudControlParameters() {
 
 <a name="opcionesadicionales"></a>
 #### Opciones adicionales
-Dentro del parámetro *$optionsSAR_operacion* pueden enviarse opciones adicionales que habilitan características para esa transacción en particular. A continuación se describen las mismas
+Dentro del parámetro *parameters* pueden enviarse opciones adicionales que habilitan características para esa transacción en particular. A continuación se describen las mismas
 
 <a name="coutas"></a>
 ##### Rango de Cuotas
@@ -433,12 +433,3 @@ Es posible setear el rango de cuotas a mostrar en el formulario entre un mínimo
   </tr>  
 </table>
 
-##### Ejemplo
-
-```php
-$optionsSAR_operacion = array (
-...................................
-	'MININSTALLMENTS'=>3,
-	'MAXINSTALLMENTS'=>6,
-...................................
-```
