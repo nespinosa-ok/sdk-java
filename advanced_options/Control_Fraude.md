@@ -398,7 +398,7 @@ private static Map<String, String> getFraudControlParameters() {
 ```
 
 
-[<sub>Volver a inicio</sub>](#inicio)
+
 <br>
 
 <a name="opcionesadicionales"></a>
