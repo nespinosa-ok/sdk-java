@@ -115,7 +115,6 @@ La versi&oacute;n implementada de la SDK, esta testeada para versiones desde Jav
 #### 2. Generalidades
 Esta versión soporta únicamente pago en moneda nacional argentina (CURRENCYCODE = 32).
 
-[<sub>Volver a inicio</sub>](#inicio)	
 
 <a name="uso"></a>		
 ## Uso	
