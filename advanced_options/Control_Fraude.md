@@ -345,52 +345,58 @@ $12 ->  12.00</td>
   </tr>
 </table>
 
-```php
-$optionsSAR_operacion = array(
-	...........................................................................
-	'CSBTCITY'=>'Villa General Belgrano', //Ciudad de facturación, REQUERIDO.
-	'CSBTCOUNTRY'=>'AR', //País de facturación. REQUERIDO. Código ISO.
-	'CSBTCUSTOMERID'=>'453458', //Identificador del usuario al que se le emite la factura. REQUERIDO. No puede contener un correo electrónico.
-	'CSBTIPADDRESS'=>'192.0.0.4', //IP de la PC del comprador. REQUERIDO.
-	'CSBTEMAIL'=>'decidir@hotmail.com', //Mail del usuario al que se le emite la factura. REQUERIDO.
-	'CSBTFIRSTNAME'=>'Juan' ,//Nombre del usuario al que se le emite la factura. REQUERIDO.
-	'CSBTLASTNAME'=>'Perez', //Apellido del usuario al que se le emite la factura. REQUERIDO.
-	'CSBTPHONENUMBER'=>'541160913988', //Teléfono del usuario al que se le emite la factura. No utilizar guiones, puntos o espacios. Incluir código de país. REQUERIDO.
-	'CSBTPOSTALCODE'=>' C1010AAP', //Código Postal de la dirección de facturación. REQUERIDO.
-	'CSBTSTATE'=>'B', //Provincia de la dirección de facturación. REQUERIDO. Ver tabla anexa de provincias.
-	'CSBTSTREET1'=>'Cerrito 740', //Domicilio de facturación (calle y nro). REQUERIDO.
-	'CSBTSTREET2'=>'Piso 8', //Complemento del domicilio. (piso, departamento). OPCIONAL.
-	'CSPTCURRENCY'=>'ARS', //Moneda. REQUERIDO.
-	'CSPTGRANDTOTALAMOUNT'=>'125.38', //Con decimales opcional usando el punto como separador de decimales. No se permiten comas, ni como separador de miles ni como separador de decimales. REQUERIDO. (Ejemplos:$125,38-> 125.38 $12-> 12 o 12.00)
-	'CSMDD7'=>'', // Fecha registro comprador(num Dias). OPCIONAL.
-	'CSMDD8'=>'Y', //Usuario Guest? (Y/N). En caso de ser Y, el campo CSMDD9 no deberá enviarse. OPCIONAL.
-	'CSMDD9'=>'', //Customer password Hash: criptograma asociado al password del comprador final. OPCIONAL.
-	'CSMDD10'=>'', //Histórica de compras del comprador (Num transacciones). OPCIONAL.
-	'CSMDD11'=>'', //Customer Cell Phone. OPCIONAL.
-	'CSSTCITY'=>'rosario', //Ciudad de envío de la orden. REQUERIDO.
-	'CSSTCOUNTRY'=>'', //País de envío de la orden. REQUERIDO.
-	'CSSTEMAIL'=>'jose@gmail.com', //Mail del destinatario, REQUERIDO.
-	'CSSTFIRSTNAME'=>'Jose', //Nombre del destinatario. REQUERIDO.
-	'CSSTLASTNAME'=>'Perez', //Apellido del destinatario. REQUERIDO.
-	'CSSTPHONENUMBER'=>'541155893737', //Número de teléfono del destinatario. REQUERIDO.
-	'CSSTPOSTALCODE'=>'1414', //Código postal del domicilio de envío. REQUERIDO.
-	'CSSTSTATE'=>'D', //Provincia de envío. REQUERIDO. Son de 1 caracter
-	'CSSTSTREET1'=>'San Martín 123', //Domicilio de envío. REQUERIDO.
-	'CSMDD12'=>'',//Shipping DeadLine (Num Dias). NO REQUERIDO.
-	'CSMDD13'=>'',//Método de Despacho. NO REQUERIDO.
-	'CSMDD14'=>'',//Customer requires Tax Bill ? (Y/N). NO REQUERIDO.
-	'CSMDD15'=>'',//Customer Loyality Number. NO REQUERIDO.
-	'CSMDD16'=>'',//Promotional / Coupon Code. NO REQUERIDO.
-	//Retail: datos a enviar por cada producto, los valores deben estar separados con #:
-	'CSITPRODUCTCODE'=>'electronic_good', //Código de producto. REQUERIDO. Valor Ejemplo(adult_content;coupon;default;electronic_good;electronic_software;gift_certificate;handling_only;service;shipping_and_handling;shipping_only;subscription)
-	'CSITPRODUCTDESCRIPTION'=>'NOTEBOOK L845 SP4304LA DF TOSHIBA', //Descripción del producto. REQUERIDO.
-	'CSITPRODUCTNAME'=>'NOTEBOOK L845 SP4304LA DF TOSHIBA', //Nombre del producto. REQUERIDO.
-	'CSITPRODUCTSKU'=>'LEVJNSL36GN', //Código identificador del producto. REQUERIDO.
-	'CSITTOTALAMOUNT'=>'1254.40', //CSITTOTALAMOUNT=CSITUNITPRICE*CSITQUANTITY "999999[.CC]" Con decimales opcional usando el punto como separador de decimales. No se permiten comas, ni como separador de miles ni como separador de decimales. REQUERIDO.
-	'CSITQUANTITY'=>'1', //Cantidad del producto. REQUERIDO.
-	'CSITUNITPRICE'=>'1254.40', //Formato Idem CSITTOTALAMOUNT. REQUERIDO.
-	...........................................................
+```java		
+private static Map<String, String> getFraudControlParameters() {
+
+	Map<String, String> parameters = new HashMap<String, String>();		
+	parameters.put("CSBTCITY", "Villa General Belgrano"); //Ciudad de facturación, MANDATORIO.		
+	parameters.put("CSBTCOUNTRY", "AR");//País de facturación. MANDATORIO. Código ISO. (http://apps.cybersource.com/library/documentation/sbc/quickref/countries_alpha_list.pdf)	
+	parameters.put("CSBTCUSTOMERID", "453458"); //Identificador del usuario al que se le emite la factura. MANDATORIO. No puede contener un correo electrónico.		
+	parameters.put(CSBTIPADDRESS", "192.0.0.4"); //IP de la PC del comprador. MANDATORIO.		
+	parameters.put(CSBTEMAIL", "some@someurl.com"); //Mail del usuario al que se le emite la factura. MANDATORIO.
+	parameters.put(CSBTFIRSTNAME", "Juan");//Nombre del usuario al que se le emite la factura. MANDATORIO.		
+	parameters.put(CSBTLASTNAME", "Perez");//Apellido del usuario al que se le emite la factura. MANDATORIO.
+	parameters.put(CSBTPHONENUMBER", "541160913988");//Teléfono del usuario al que se le emite la factura. No utilizar guiones, puntos o espacios. Incluir código de país. MANDATORIO.		
+	parameters.put(CSBTPOSTALCODE", "1010");//Código Postal de la dirección de facturación. MANDATORIO.	
+	parameters.put(CSBTSTATE", "B");//Provincia de la dirección de facturación. MANDATORIO. Ver tabla anexa de provincias.	
+	parameters.put(CSBTSTREET1", "Some Street 2153");//Domicilio de facturación (calle y nro). MANDATORIO.			
+	parameters.put("CSBTSTREET2", "Piso 8");//Complemento del domicilio. (piso, departamento). NO MANDATORIO.
+	parameters.put(CSPTCURRENCY", "ARS");//Moneda. MANDATORIO.		
+	parameters.put(CSPTGRANDTOTALAMOUNT", "125.38");//Con decimales opcional usando el puntos como separador de decimales. No se permiten comas, ni como separador de miles ni como separador de decimales. MANDATORIO.(Ejemplos:$125,38-> 125.38 $12-> 12 o 12.00)		
+	parameters.put(CSMDD7", "");// Fecha registro comprador(num Dias). NO MANDATORIO.		
+	parameters.put(CSMDD8", "Y"); //Usuario Guest? (Y/N). En caso de ser Y, el campo CSMDD9 no deberá enviarse. NO MANDATORIO.		
+	parameters.put(CSMDD9", "");//Customer password Hash: criptograma asociado al password del comprador final. NO MANDATORIO.		
+	parameters.put(CSMDD10", "");//Histórica de compras del comprador (Num transacciones). NO MANDATORIO.	
+	parameters.put(CSMDD11", "");//Customer Cell Phone. NO MANDATORIO.		
+
+	//Retail
+	parameters.put("CSSTCITY", "Villa General Belgrano");//Ciudad de enví­o de la orden. MANDATORIO.	
+	parameters.put("CSSTCOUNTRY", "AR");//País de envío de la orden. MANDATORIO.	
+	parameters.put("CSSTEMAIL", "some@someurl.com");//Mail del destinatario, MANDATORIO.			
+	parameters.put("CSSTFIRSTNAME", "Juan");//Nombre del destinatario. MANDATORIO.		
+	parameters.put("CSSTLASTNAME", "Perez");//Apellido del destinatario. MANDATORIO.		
+	parameters.put("CSSTPHONENUMBER", "541160913988");//Número de teléfono del destinatario. MANDATORIO.	
+	parameters.put("CSSTPOSTALCODE", "1010");//Código postal del domicilio de envío. MANDATORIO.		
+	parameters.put("CSSTSTATE", "B");//Provincia de envío. MANDATORIO. Son de 1 caracter			
+	parameters.put("CSSTSTREET1", "Some Street 2153");//Domicilio de envío. MANDATORIO.		
+	parameters.put("CSSTSTREET2", "Piso 8");//Complemento del domicilio. (piso, departamento). NO MANDATORIO.
+	parameters.put("CSMDD12", "");//Shipping DeadLine (Num Dias). NO MADATORIO.		
+	parameters.put("CSMDD13", "");//Método de Despacho. NO MANDATORIO.		
+	parameters.put("CSMDD14", "");//Customer requires Tax Bill ? (Y/N). NO MANDATORIO.		
+	parameters.put("CSMDD15", "");//Customer Loyality Number. NO MANDATORIO. 		
+	parameters.put("CSMDD16", "");//Promotional / Coupon Code. NO MANDATORIO. 		
+	
+	//datos a enviar por cada producto, los valores deben estar separado con #:		
+	parameters.put("CSITPRODUCTCODE", "electronic_good");//Código de producto. MANDATORIO. Valores posibles(adult_content;coupon;default;electronic_good;electronic_software;gift_certificate;handling_only;service;shipping_and_handling;shipping_only;subscription)	
+	parameters.put("CSITPRODUCTDESCRIPTION", "Test Prd Description");//Descripción del producto. MANDATORIO.	
+	parameters.put("CSITPRODUCTNAME", "TestPrd");//Nombre del producto. CONDICIONAL.	
+	parameters.put("CSITPRODUCTSKU", "SKU1234");//Código identificador del producto. MANDATORIO.		
+	parameters.put("CSITTOTALAMOUNT", "10.01");//CSITTOTALAMOUNT=CSITUNITPRICE*CSITQUANTITY "999999[.CC]" Con decimales opcional usando el punto como separador de decimales. No se permiten comas, ni como separador de miles ni como separador de decimales. MANDATORIO.		
+	parameters.put("CSITQUANTITY", "1");//Cantidad del producto. CONDICIONAL.		
+	parameters.put("CSITUNITPRICE", "10.01");//Formato Idem CSITTOTALAMOUNT. CONDICIONAL.	
+}	
 ```
+
 
 [<sub>Volver a inicio</sub>](#inicio)
 <br>
