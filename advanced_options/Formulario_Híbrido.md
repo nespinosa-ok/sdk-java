@@ -10,13 +10,6 @@ El endpoint depende del entorno:
 + Desarrollo: https://apis.developers.todopago.com.ar/resources/v2/TPBSAForm.min.js
 + Produccion: https://forms.todopago.com.ar/resources/v2/TPBSAForm.min.js
 
-También se provee un método en el SDK para obtener el endpoint de la librería Javascript:
-
-```php
-$sdk = new \TodoPago\Sdk($http_header, $mode);
-$js = $sdk->getEndpointForm();
-```
-
 **Restricciones y libertades en la implementación**
 
 + Por ningún motivo podrá bajarse el javascript provisto ni realizar cambios en el mismo. Siempre deberá ser tomado de los servidores de TodoPago.
