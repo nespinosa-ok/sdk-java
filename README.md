@@ -295,3 +295,18 @@ private static Map<String, List<String>> getAuthorization() {
 ```
 
 
+## Idioma
+
+* Los mensajes de error seran respondidos en idioma castellano.
+* Esta versión soporta únicamente pago en moneda nacional argentina (CURRENCYCODE = 32).<br>
+
+## Provincias
+<a name="provincia"></a>
+
+Para la definición de provincia tenemos una tabla que indica el valor a enviar:
+* [Tabla de Provincia](../main/tables/Tabla_Provincia.md)
+
+En Samples tenes una funcion con un switch que filtra las provincias definidas, recorda q esto se basa en como vos las tengas definidas, asi q tomate la libertad de agregar las que necesites.
+
+* [Funcion Ejemplo](../main/samples/provincias.php)
+
