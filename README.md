@@ -145,4 +145,151 @@ TodoPagoConector tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint);
 
 <br/>
 <a name="agrupador"></a>
+<a name="confirmatransaccion"></a>
+#### Confirmación de transacción.
+En este caso hay que llamar a **getAuthorizeAnswer()**, enviando como parámetro un Map<String, String> como se describe a continuación.
+
+<table>
+  <tr>
+    <th>Campo</th>
+    <th>Requerido</th>
+    <th>Descripción</th>
+    <th>Tipo de Dato</th>
+    <th>Valores posibles / Ejemplo</th>
+  </tr>
+  <tr>
+    <td><b>Security</b></td>
+    <td>No</td>
+    <td>Token  de Seguridad Generado en el Portal de TodoPago</td>
+    <td>Alfanumérico hasta 32 caracteres</td>
+    <td>1234567890ABCDEF1234567890ABCDEF</td>
+  </tr>
+  <tr>
+    <td><b>Merchant</b></td>
+    <td>Si</td>
+    <td>Nro. de Comercio (Merchant ID) provisto por TodoPago</td>
+    <td>Alfanumérico de  8 caracteres</td>
+    <td>12345678</td>
+  </tr>
+  <tr>
+    <td><b>RequestKey</b></td>
+    <td>Si</td>
+    <td>Identificador Privado del Requerimiento obtenido en la respuesta de la operación SendAuthorizeRequest . Nunca debe ser expuesto hacia el Web Browser. Solo será utilizado entre el ecommerce y TodoPago</td>
+    <td>Alfanumérico hasta 48 caracteres</td>
+    <td>8496472a-8c87-e35b-dcf2-94d5e31eb12f</td>
+  </tr>
+  <tr>
+    <td><b>AnswerKey</b></td>
+    <td>Sí</td>
+    <td>Identificador Público de la Respuesta. Recibido según el formulario utilizado, en la url de redirección hacia el ecommerce, o como propiedad retornada en el callback del formulario híbrido.</td>
+    <td>Alfanumérico hasta 48 caracteres</td>
+    <td>8496472a-8c87-e35b-dcf2-94d5e31eb12f</td>
+  </tr>
+</table>
+
+
+
+```java	
+Map<String, String> parameters = new HashMap<String, String>();		
+	parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF"); // Token de seguridad, provisto por TODO PAGO. MANDATORIO.
+	parameters.put(ElementNames.Merchant, "12345678");
+	parameters.put(ElementNames.RequestKey, "0123-1234-2345-3456-4567-5678-6789");
+	parameters.put(ElementNames.AnswerKey, "1111-2222-3333-4444-5555-6666-7777"); // *Importante
+
+Map<String, Object> b = tpc.getAuthorizeAnswer(parameters);	
+```
+
+Se deben guardar y recuperar los valores de los campos <strong>RequestKey</strong> y <strong>AnswerKey</strong>.
+
+El parámetro <strong>RequestKey</strong> es siempre distinto y debe ser persistido de alguna forma cuando el comprador es redirigido al formulario de pagos.
+
+<ins><strong>Importante</strong></ins> El campo **AnswerKey** se adiciona  en la redirección que se realiza a alguna de las direcciones ( URL ) epecificadas en el  servicio **SendAurhorizationRequest**, esto sucede cuando la transacción ya fue resuelta y es necesario regresar al site para finalizar la transacción de pago, también se adiciona el campo Order, el cual tendrá el contenido enviado en el campo **OPERATIONID**. Para nuestro ejemplo: <strong>http://susitio.com/paydtodopago/ok?Order=27398173292187&Answer=1111-2222-3333-4444-5555-6666-7777</strong>		
+
+<table>
+<tr><td>Campo</td><td>Requerido</td><td>Descripción</td><td>Tipo de Dato</td><td>Valores posibles / Ejemplo</td></tr>
+<tr><td>**StatusCode** </td><td>Si</td><td>Código de estado o valor de retorno del Servicio</td><td>Numèrico de 5 posiciones</td><td> <b>-1 -> OK<br> 0 a 99999 o vacío -> error</b></td></tr>
+<tr><td>**StatusMessage**</td><td>Si</td><td>Descripción del código de retorno o estado del servicio</td><td>Alfanumérico hasta 256</td><td>Ejemplo: "APROBADA"</td></tr>
+<tr><td>**AuthorizationKey**</td><td>No</td><td>Identificador Privado de la Respuesta</td><td>Alfanumérico hasta 256 caracteres</td><td>Ejemplo: "9c2f0109-e585-0776-d3d0-f934ed50ccd4"</td></tr>
+<tr><td>**EncodingMethod**</td><td>No</td><td>Especifica el tipo codificación que se usa para los datos de la transacciones de pagos</td><td>Alfanumérico hasta 16 caracteres</td><td>XML</td></tr>
+<tr><td>**Payload**</td><td>No</td><td>Documento codificado  en el  formato especificado en el campo EncodingMethod  el cual contiene los datos de la transacción ejecutada</td><td>Alfanumérico hasta 2048 caracteres</td><td>-</td></tr></table>
+.
+
+El campo o elemento Payload es utilizado para retornar los datos de la respuesta de la transacción. En la siguiente Tabla se muestran los valores enviados en el campo _Answer_ de dicho elemento. (El otro campo presente, de nombre _Request_ contiene información enviada en el requerimiento del _GetAuthorizeAnswer_)
+
+<table>
+<tr><td>Campo</td><td>Requerido</td><td>Descripción</td><td>Tipo de Dato</td><td>Valores posibles / Ejemplo</td></tr>
+<tr><td>**DATETIME**</td><td>Si</td><td>Fecha y Hora de la Transacción</td><td>Fecha y Hora. aaaammddTHHMMSSZ La hora se expresa en formato 24 hs.</td><td>Ejemplo: "2017-07-28T15:54:14Z"</td></tr>
+<tr><td>**RESULTCODE**</td><td>Si</td><td>Código de estado o valor de retorno del Servicio</td><td>Numérico de 5 posiciones</td><td> <b>-1 -> OK<br> 0 a 99999 o vacío -> error</b></td></tr>
+<tr><td>**RESULTMESSAGE**</td><td>Si</td><td>Descripción del código de retorno o estado del servicio</td><td>Alfanumérico hasta 256</td><td>Ejemplo: "APROBADA"</td></tr>
+<tr><td>**CURRENCYNAME**</td><td>No</td><td>Nombre de la Moneda</td><td>Alfanumérico</td><td>Ejemplo: "Peso Argentino"</td></tr>
+<tr><td>**PAYMENTMETHODNAME**</td><td>Sí </td><td>Medio de pago usado para la operación</td><td>Alfanumérico</td><td>Ejemplo: "VISA"</td></tr>
+<tr><td>**TICKETNUMBER** </td><td>No</td><td>Número de Ticket o Voucher</td><td>Numérico de Hasta 4 dígitos</td><td>Ejemplo: 7057</td></tr>
+<tr><td>**CARDNUMBERVISIBLE**</td><td>No</td><td>Número de Tarjeta, enmascarado según normativas nacionales, regionales o globales</td><td></td><td>Ejemplo: "450799XXXXXX0010"</td></tr>
+<tr><td>**AUTHORIZATIONCODE**</td><td>No</td><td>Código de Autorización</td><td>Alfanumérico de hasta 8 caracteres</td><td>Ejemplo: "014158"</td></tr>
+<tr><td>**INSTALLMENTPAYMENTS**</td><td>No</td><td>Cantidad de cuotas elegidas para la operación</td><td>Numérico</td><td> Ejemplo: 03</td></tr>
+<tr><td>**AMOUNTBUYER**</td><td>Si</td><td>Monto final (incluyendo Costo Financiero) pagado por el comprador</td><td>Decimal</td><td> Ejemplo: 129.68</td></tr>
+<tr><td>**CFT**</td><td>Si</td><td>CFT de la promoción aplicada.</td><td>Decimal</td><td> Ejemplo: 0.00</td></tr>
+<tr><td>**TEA**</td><td>Si</td><td>TEA de la promoción aplicada.</td><td>Decimal</td><td> Ejemplo: 22.00</td></tr>
+</table>
+
+```java		
+Map<String, Object>		
+	{ StatusCode = -1, 		
+      StatusMessage = APROBADA,		
+	  AuthorizationKey = 1294-329E-F2FD-1AD8-3614-1218-2693-1378,		
+      EncodingMethod = XML,		
+      Payload = { Answer = { DATETIME = 2014/08/11 15:24:38,		
+						     RESULTCODE = -1,		
+							 RESULTMESSAGE = APROBADA,		
+							 CURRENCYNAME = Pesos,		
+							 PAYMENTMETHODNAME = VISA,		
+							 TICKETNUMBER = 12,		
+							 CARDNUMBERVISIBLE = 450799******4905,		
+							 AUTHORIZATIONCODE = TEST38,
+							 INSTALLMENTPAYMENTS = 6,
+							 TEA = 22.00,
+							 CFT = 0.00
+							 }, 
+				{ Request = { MERCHANT = 12345678,
+						      OPERATIONID = ABCDEF-1234-12221-FDE1-00000012,
+							  AMOUNT = 1.00,
+							  CURRENCYCODE = 032}
+				}
+	}
+	  
+```		
+Este método devuelve el resumen de los datos de la transacción
+
+Si se pasa mal el <strong>AnswerKey</strong> o el <strong>RequestKey</strong> se verá el siguiente rechazo:
+
+```java
+Map<String, Object> 
+	{ StatusCode = 404,
+	  StatusMessage = ERROR: Transaccion Inexistente,
+          AuthorizationKey = null,
+          EncodingMethod = null }
+```
+
+<a name="ejemplo"></a>      
+#### Ejemplo
+Existe un ejemplo ejecutable en https://github.com/TodoPago/SDK-Java/blob/master/Ejemplo/src/main/java/com/ar/todopago/ejemplo/SampleUI.java que muestra los resultados de los métodos principales del SDK y su correcta implementacion.<br>
+
+Existe un ejemplo en la carpeta https://github.com/TodoPago/sdk-java/tree/master/src/test que muestra los resultados de los métodos principales del SDK.	
+
+<a name="test"></a>      
+#### Modo Test
+
+El SDK-JAVA permite trabajar con los ambiente de desarrollo y de produccion de Todo Pago.<br>
+El ambiente se debe instanciar como se indica a continuacion.
+
+```java
+TodoPagoConector tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint, getAuthorization());
+
+private static Map<String, List<String>> getAuthorization() {
+	Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+	parameters.put(ElementNames.Authorization, Collections.singletonList("PRISMA f3d8b72c94ab4a06be2ef7c95490f7d3"));
+	return parameters;
+}
+```
+
 
