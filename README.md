@@ -323,5 +323,3 @@ En Samples tenes una funcion con un switch que filtra las provincias definidas, 
 - Ir a Eclipse e importar el Proyecto normalmente: File - Import - Existing Projects into Workspace
 
 <br />		
-[<sub>Volver a inicio</sub>](#inicio)
-
