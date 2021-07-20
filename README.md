@@ -146,7 +146,6 @@ TodoPagoConector tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint);
 <br/>
 <a name="agrupador"></a>
 <a name="confirmatransaccion"></a>
-```
 
  #### Confirmación de transacción.
  
