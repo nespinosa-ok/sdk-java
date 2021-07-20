@@ -78,7 +78,7 @@ Una vez hecho esto se puede agregar la dependencia a este paquete desde el pom.x
 <dependency>
 	<groupId>com.ar.todopago</groupId>
 	<artifactId>sdk-java</artifactId>
-	<version>1.5.0</version>
+	<version>2.0.0</version>
 </dependency>
 ```
 De ser necesario agregar la siguiente dependencia requerida por TodoPago desde el pom.xml
