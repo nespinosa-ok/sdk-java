@@ -109,7 +109,7 @@ Luego, importar el proyecto normalmente en Eclipse.
 
 <a name="Versionesdejavasoportadas"></a>   
 #### 1. Versiones de Java soportadas
-La versi&oacute;n implementada de la SDK, esta testeada para versiones desde Java 5 en adelante con JAX-WS.
+La versi&oacute;n implementada de la SDK, esta testeada para versiones desde Java 8 en adelante con JAX-WS.
 
 <a name="general"></a>
 #### 2. Generalidades
