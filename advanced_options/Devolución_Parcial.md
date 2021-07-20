@@ -21,27 +21,30 @@ _*Es requerida la presencia de sólo uno de estos 2 campos_
 
 **Ejemplo:**
 
-```php
-
-$options = array(
-	"Security" => "837BE68A892F06C17B944F344AEE8F5F", // API Key del comercio asignada por TodoPago
-	"Merchant" => "35", // Merchant o Nro de comercio asignado por TodoPago
-	"RequestKey" => "6d2589f2-37e6-1334-7565-3dc19404480c" // RequestKey devuelto como respuesta del servicio SendAutorizeRequest
-	"AMOUNT" => "23.50" // Opcional. Monto a devolver, si no se envía, se trata de una devolución total
-);
-$resp = $todopago->returnRequest($options);
+```java
+private static Map<String, String> getRRParameters() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF"); // API Key del comercio asignada por TodoPago 
+		parameters.put(ElementNames.Merchant, "12345678"); // Merchant o Nro de comercio asignado por TodoPago
+		parameters.put(ElementNames.RequestKey, "e31d340c-690c-afe6-c478-fc1bef3fc157");  // RequestKey devuelto como respuesta del servicio SendAutorizeRequest
+		parameters.put(ElementNames.Amount, "10.5"); // Opcional. Monto a devolver, si no se envía, se trata de una devolución total
+		return parameters;
+}
+Map<String, Object> i = tpc.returnRequest(getRRParameters());
 ```
 
 También se puede llamar al método ```returnRequest``` de esta otra manera:
-```php
+```java
 
-$options = array(
-	"Security" => "837BE68A892F06C17B944F344AEE8F5F", // API Key del comercio asignada por TodoPago
-	"Merchant" => "35", // Merchant o Nro de comercio asignado por TodoPago
-	"AuthorizationKey" => "6d2589f2-37e6-1334-7565-3dc19404480c" // AuthorizationKey devuelto como respuesta del servicio GetAuthorizeAnswer
-	"AMOUNT" => "23.50" // Opcional. Monto a devolver, si no se envía, se trata de una devolución total
-);
-$resp = $todopago->returnRequest($options);
+private static Map<String, String> getRRParameters() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put(ElementNames.Security, "1234567890ABCDEF1234567890ABCDEF"); // API Key del comercio asignada por TodoPago 
+		parameters.put(ElementNames.Merchant, "12345678"); // Merchant o Nro de comercio asignado por TodoPago
+		parameters.put(ElementNames.AuthorizationKey, "6d2589f2-37e6-1334-7565-3dc19404480c");  // AuthorizationKey devuelto como respuesta del servicio GetAuthorizeAnswer
+		parameters.put(ElementNames.Amount, "10.5"); // Opcional. Monto a devolver, si no se envía, se trata de una devolución total
+		return parameters;
+}
+Map<String, Object> i = tpc.returnRequest(getRRParameters());
 ```
 
 **Respuesta de servicio:**
@@ -53,9 +56,8 @@ StatusMessage | Sí          |Resultado de la devolución                       
 
 Si la operación fue realizada correctamente se informará con un código 2011 y un mensaje indicando el éxito de la operación.
 
-```php
-array(
-	"StatusCode" => 2011,
-	"StatusMessage" => "Operación realizada correctamente",
-);
+```java
+Map<String, Object> 
+	{ StatusCode = 2011,
+	  StatusMessage = Operación realizada correctamente }
 ```
