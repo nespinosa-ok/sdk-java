@@ -147,6 +147,7 @@ TodoPagoConector tpc = new TodoPagoConector(TodoPagoConector.developerEndpoint);
 <a name="agrupador"></a>
 <a name="confirmatransaccion"></a>
 ```
+
  #### Confirmación de transacción.
  
 En este caso hay que llamar a **getAuthorizeAnswer()**, enviando como parámetro un Map<String, String> como se describe a continuación.
