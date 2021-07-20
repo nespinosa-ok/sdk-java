@@ -18,6 +18,7 @@ El SDK dispone de métodos para realizar la devolución, de una transacción rea
 
 Se debe llamar al método ```voidRequest``` de la siguiente manera:
 
+
 Campo            | Requerido  | Descripción                                                              | Tipo de Dato | Valores posibles / Ejemplo
 -----------------|------------|---------------------------------------------------------------------     |--------------|---------------------------
 Security         | Sí         | API Key del comercio asignada por TodoPago                               | alfanumérico | 837BE68A892F06C17B944F344AEE8F5F
