@@ -127,36 +127,83 @@ El SDK permite obtener las credenciales "Authentification", "MerchandId" y "Secu
 Esta funcionalidad es útil para obtener los parámetros de configuración dentro de la implementación.
 
 - Crear una instancia de la clase User:
-```php
+```java
 
-$http_header = array();
+public void getCredentials(TodoPagoConector tpc) {
+		
+		User user = new User("test@test.com", "test1234");// user y pass de TodoPago
+		
+		try {
+			user = tpc.getCredentials(user);
+			tpc.setAuthorize(getAuthorization(user));// set de la APIKey a TodoPagoConector 
+			
+		} catch (EmptyFieldException e) {//se debe realizar catch por campos en blanco
+			logger.log(Level.WARNING, e.getMessage());						
+		} catch (MalformedURLException e) {
+			logger.log(Level.WARNING, e.getMessage());	
+		} catch (ResponseException e) {
+			logger.log(Level.WARNING, e.getMessage());
+		} catch (ConnectionException e) {
+			logger.log(Level.WARNING, e.getMessage());
+		}
+		System.out.println(user.toString());	
+}
+	
+	private Map<String, List<String>> getAuthorization(User user) {
+		Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+		parameters.put(ElementNames.Authorization,Collections.singletonList(user.getApiKey()));
+		
+		return parameters;
+}
+```
+[<sub>Volver a inicio</sub>](#inicio)
 
-$connector = new Sdk($http_header, "test");//instanciar SDK
+<a name="echo"></a>
+#### Estado del servicio
 
-$datosUsuario = array(
-	"user" => "usuario@todopago.com.ar",
-	"password" => "contraseña"
-);
+La SDK dispone de un método para verificar el estado de los servicios de TodoPago..<br>
+Se debe llamar al método ```healthCheck``` de la siguiente manera:
 
-$credenciales = new TodoPago\Data\User($datosUsuario);
+```java
+	Boolean check = tpc.healthCheck();	
 ```
 
-Tambien se puede pasar los datos de usuario de la siguiente manera:
+<a name="opcionesadicionales"></a>
+#### Opciones adicionales
+Dentro del primer parámetro pasado al método sendAuthorizeRequest() pueden enviarse opciones adicionales que habilitan características para esa transacción en particular. A continuación se describen las mismas.
 
-```php
-$credenciales = new TodoPago\Data\User("usuario@todopago.com.ar", "contraseña");
-```
+<a name="coutas"></a>
+##### Rango de Cuotas
+Es posible setear el rango de cuotas a mostrar en el formulario entre un mínimo y un máximo, enviando los siguientes parametros adicionales
 
-```php
-$credenciales = new TodoPago\Data\User();
-$credenciales->setUser("usuario@todopago.com.ar");
-$credenciales->setPassword("contraseña");
-```
+<table>
+  <tr>
+    <th>Campo</th>
+    <th>Requerido</th>
+    <th>Descripción</th>
+    <th>Tipo de Dato</th>
+    <th>Valores posibles / Ejemplo</th>
+  </tr>
+  <tr>
+    <td><b>MININSTALLMENTS</b></td>
+    <td>No</td>
+    <td>Mínimo de cuotas a mostrar en el formulario</td>
+    <td>Numérico</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><b>MAXINSTALLMENTS</b></td>
+    <td>No</td>
+    <td>Máximo de cuotas a mostrar en el formulario</td>
+    <td>Numérico</td>
+    <td>9</td>
+  </tr>  
+</table>
 
-- Obtener respuesta de servicio:
-```php
-$rta = $connector->getCredentials($credenciales);
-$rta->getMerchant();
-$rta->getApikey();
+##### Ejemplo
+ 
+```java		
+Map<String, String> parameters = new HashMap<String, String>();
+parameters.put(ElementNames.MAXINSTALLMENTS, "12");
+parameters.put(ElementNames.MININSTALLMENTS, "1");	
 ```
-**Observación**: El Security se obtiene a partir de apiKey, eliminando TODOPAGO de este último.
