@@ -310,3 +310,18 @@ En Samples tenes una funcion con un switch que filtra las provincias definidas, 
 
 * [Funcion Ejemplo](../main/samples/provincias.php)
 
+<a name="eclipse"></a>		
+## Agregar el proyecto a Eclipse		
+- Bajar Maven 3 de la siguiente URL: http://maven.apache.org/download.cgi
+- Descomprimir lo descargado.
+- Agregar o modificar la variable de entorno M2_HOME con path a donde se descomprime Maven 
+- Descargar el proyecto de GitHub
+- Por consola ir a la carpeta donde se descargo el proyecto
+- Ejecutar las siguientes lineas:
+	- mvn clean install -Dwtpversion=2.0
+	- mvn eclipse:clean eclipse:eclipse -Dwtpversion=2.0
+- Ir a Eclipse e importar el Proyecto normalmente: File - Import - Existing Projects into Workspace
+
+<br />		
+[<sub>Volver a inicio</sub>](#inicio)
+
